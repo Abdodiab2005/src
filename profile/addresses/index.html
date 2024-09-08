@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Addresses</title>
+    <link
+      rel="preload"
+      href="../styles/framework.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../styles/header.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../styles/aside.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../styles/footer.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../styles/addresses.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <!-- Fallback for older browsers or when JavaScript is disabled -->
+      <link rel="stylesheet" href="../styles/framework.css" />
+      <link rel="stylesheet" href="../styles/header.css" />
+      <link rel="stylesheet" href="../styles/aside.css" />
+      <link rel="stylesheet" href="../styles/footer.css" />
+      <link rel="stylesheet" href="../styles/addresses.css" />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    </noscript>
+
+    <link rel="preload" href="../js/header.js" as="script" />
+    <script src="../../js/header.js"></script>
+    <script src="../../js/aside.js"></script>
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      onload="this.onload=null;this.rel='stylesheet'" />
+  </head>
+  <body class="grid loading-active" id="root">
+    <div class="circle-container">
+      <div class="circle"></div>
+    </div>
+    <div
+      class="add__new__address__popup w100 p20 h100v flex__row center hidden">
+      <div class="address__popup__container w90 p20 h90v rad8">
+        <div class="address__popup__header p10 w100 flex__row space-between">
+          <span class="popup__header__title">Add new address</span>
+          <i class="fa-solid fa-xmark close-icon"></i>
+        </div>
+        <div class="address__popup__body flex__colum flex-start">
+          <form class="popup__inputs__container flex__column g20">
+            <div class="input__container grid">
+              <span class="popup__address__title">Name: </span>
+              <input
+                type="text"
+                class="input address__input__field rad8"
+                id="addNewAddressName"
+                placeholder="name" />
+            </div>
+            <div class="input__container grid">
+              <span class="popup__address__title">Street: </span>
+              <input
+                type="text"
+                class="input address__input__field rad8"
+                id="addNewAddressStreet"
+                placeholder="street" />
+            </div>
+            <div class="input__container grid">
+              <span class="popup__address__title">city: </span>
+              <select
+                name="AddNewAddressCity"
+                id="AddNewAddressCity"
+                class="select__city select input">
+                <option value="NewDamietta">New Damietta</option>
+                <option value="giza">Giza</option>
+                <option value="Alexandria">Alex</option>
+              </select>
+            </div>
+            <div class="input__container grid">
+              <span class="popup__address__title">phone number: </span>
+              <input
+                type="text"
+                class="input address__input__field rad8"
+                id="addNewAddressPhoneNumber"
+                placeholder="Phone number" />
+            </div>
+            <div class="input__container grid">
+              <span class="popup__address__title">zip code: </span>
+              <input
+                type="text"
+                class="input address__input__field rad8"
+                id="addNewAddressZIPcode"
+                placeholder="ZIP code" />
+            </div>
+          </form>
+        </div>
+        <div class="address__popup__footer flex__row g25 w100 center">
+          <button
+            class="btn add__btn ripple-effect address__popup__footer__btn p20"
+            id="addNewAddressBtnPopup">
+            <i class="fa-solid fa-plus"></i> Add
+          </button>
+          <button
+            class="btn edit__popup__btn ripple-effect address__popup__footer__btn p20"
+            id="editCurrentAddressBtn">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+          <button
+            class="btn cancel__btn ripple-effect address__popup__footer__btn p20"
+            id="cancelAddNewAddressBtn">
+            <i class="fa-solid fa-xmark"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <section class="section address__section flex__column flex-start">
+      <div class="section__title flex__row space-between">
+        <h2 class="section__title__text">Addresses</h2>
+        <button
+          type="button"
+          class="add__new__address__btn btn"
+          id="addNewAddress">
+          <i class="fa-solid fa-plus"></i> Add new address
+        </button>
+      </div>
+      <div class="section__data flex__column flex-start p20">
+        <div
+          class="address__cards flex__column flex-start w100 g20"
+          id="sectionDataContainer"></div>
+        <div class="addresses__number__container m20 w100">
+          <div class="addresses__number__card w100 flex__row center p20">
+            <div class="addresses__number p10 rad10 m10"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="../js/handleLogin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <script src="../js/myFramework.js"></script>
+    <script src="./addressesBundled.js"></script>
+  </body>
+</html>

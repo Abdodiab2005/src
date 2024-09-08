@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <script src="../js/myFramework.js"></script>
+    <link rel="stylesheet" href="../styles/framework.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="./login.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <style>
+      #root {
+        grid-template-areas:
+          "navbar"
+          "main"
+          "footer" !important;
+        grid-template-columns: 1fr !important;
+      }
+      .sign__section {
+        grid-area: main !important;
+      }
+      .main {
+        padding: 50px;
+      }
+    </style>
+  </head>
+  <body id="root">
+    <div class="main flex__row p25">
+      <section class="sign__section section">
+        <!-- Sign In -->
+        <form
+          action="#"
+          class="sign__form sign__in__form flex__column flex-start"
+          id="signInForm">
+          <div class="section__header flex__row space-between">
+            <span class="form__title"> Sign In </span>
+            <span class="form__header__icons">
+              <i class="fa-brands fa-instagram header_icon"></i>
+              <i class="fa-brands fa-facebook header_icon"></i>
+            </span>
+          </div>
+          <div class="form__body flex__column flex-start">
+            <div class="email__inputs__container flex__column flex-start">
+              <div class="label__container flex__row flex-start">
+                <label for="email__input__signIn" class="label email__label"
+                  >E-mail</label
+                >
+              </div>
+              <input
+                type="text"
+                id="email__input__signIn"
+                name="email"
+                class="input email__input"
+                placeholder="E-mail"
+                autocomplete="email" />
+            </div>
+
+            <div class="password__inputs__container flex__column flex-start">
+              <div class="label__container flex__row flex-start">
+                <label
+                  for="password__input__signIn"
+                  class="label password__label"
+                  >Password</label
+                >
+              </div>
+              <input
+                type="text"
+                id="password__input__signIn"
+                name="password"
+                class="input password__input"
+                placeholder="Password"
+                autocomplete="current-password" />
+            </div>
+            <div class="log__btn__container flex__column flex-start">
+              <button id="loginBtn" class="btn disabled log__btn">
+                Sign In
+              </button>
+              <button class="google__btn log__btn btn">
+                <i class="fa-brands fa-google"></i> Continue with google
+              </button>
+            </div>
+            <div class="form__footer flex__row space-between">
+              <div class="check__box__container">
+                <label
+                  for="remember__me__label"
+                  class="label remember__me__label flex__row center">
+                  <input
+                    type="checkbox"
+                    name="remember__me__label"
+                    id="remember__me__label"
+                    class="checkMark" />
+                  <span class="checkmark"></span>
+                  Remember Me
+                </label>
+              </div>
+              <span class="forgot__pass"><a href="#">Forgot Password</a></span>
+            </div>
+          </div>
+        </form>
+        <form
+          action="#"
+          class="sign__form sign__up__form flex__column flex-start"
+          id="signupForm">
+          <div class="section__header flex__row space-between">
+            <span class="form__title"> Sign UP </span>
+            <span class="form__header__icons">
+              <i class="fa-brands fa-instagram header_icon"></i>
+              <i class="fa-brands fa-facebook header_icon"></i>
+            </span>
+          </div>
+          <div class="form__body flex__column flex-start">
+            <div class="name__inputs__container flex__column flex-start">
+              <div class="label__container flex__row flex-start">
+                <label for="name__input" class="label name__label">Name</label>
+              </div>
+              <input
+                type="text"
+                id="name__input"
+                name="name"
+                class="input name__input"
+                placeholder="name"
+                autocomplete="name" />
+            </div>
+            <div class="email__inputs__container flex__column flex-start">
+              <div class="label__container flex__row flex-start">
+                <label for="email__input__signup" class="label email__label"
+                  >E-mail</label
+                >
+              </div>
+              <input
+                type="text"
+                id="email__input__signup"
+                name="email"
+                class="input email__input"
+                placeholder="E-mail"
+                autocomplete="email" />
+            </div>
+
+            <div class="password__inputs__container flex__column flex-start">
+              <div class="label__container flex__row flex-start">
+                <label
+                  for="password__input__signup"
+                  class="label password__label"
+                  >Password</label
+                >
+              </div>
+              <input
+                type="text"
+                id="password__input__signup"
+                name="password"
+                class="input password__input"
+                placeholder="Password"
+                autocomplete="current-password" />
+            </div>
+            <div class="log__btn__container flex__column flex-start">
+              <button id="signupBtn" class="btn disabled log__btn">
+                Sign UP
+              </button>
+              <button class="google__btn log__btn btn">
+                <i class="fa-brands fa-google"></i> Continue with google
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="overlay-container flex__column center">
+          <div class="overlay">
+            <div class="overlay-left flex__column g20 overlay__content">
+              <h2 class="overlay__header">Welcome</h2>
+              <p class="overlay__body">Already have an account?</p>
+              <button class="handle__sign__btn btn" id="showSignUp">
+                Sign IN
+              </button>
+            </div>
+            <div class="overlay-right flex__column g20 overlay__content">
+              <h2 class="overlay__header">Welcome</h2>
+              <p class="overlay__body">Don't have an account?</p>
+              <button class="handle__sign__btn btn" id="showSignIn">
+                Sign UP
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const signUpButton = document.querySelector("#showSignIn");
+      const signInButton = document.querySelector("#showSignUp");
+      const main = document.querySelector(".sign__section");
+
+      signInButton.addEventListener("click", () => {
+        main.classList.add("right-panel-active");
+      });
+      signUpButton.addEventListener("click", () => {
+        main.classList.remove("right-panel-active");
+      });
+      localStorage.clear();
+    </script>
+    <script src="../js/header.js"></script>
+    <script src="./LoginBundled.js" async></script>
+  </body>
+</html>

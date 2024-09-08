@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+    <link rel="preconnect" href="https://firestore.googleapis.com" />
+    <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
+    <!-- fonts -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <!-- box-icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../src/mainComponents.js"></script>
+    <link rel="stylesheet" href="./orders.css" />
+    <link rel="stylesheet" href="../../src/components.css" />
+    <style>
+      body.loading-active {
+        pointer-events: none;
+        user-select: none;
+        overflow: hidden;
+      }
+
+      .circle-container {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.437);
+        pointer-events: all;
+        overflow: hidden;
+        z-index: 100;
+      }
+      .hideAnimate {
+        animation: fadeOut 0.3s forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      .circleInnerContent-container {
+        width: 100%;
+        height: 100%;
+        position: absolute; /* Changed to absolute to cover the image container */
+        background-color: rgba(0, 0, 0, 0.437);
+        pointer-events: none; /* Changed to none to avoid blocking interactions with the image container */
+        overflow: hidden;
+        z-index: 100;
+      }
+      .circleInnerContent {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px; /* Adjusted size */
+        height: 50px; /* Adjusted size */
+        border-radius: 50%;
+        border: 3px solid var(--Secondary-color-2);
+        border-top: 3px solid var(--Primary-color);
+        animation: loading 1.5s linear infinite;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 10px solid var(--Secondary-color-2);
+        border-top: 10px solid var(--Primary-color);
+        animation: loading 1.5s linear infinite;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+
+      @keyframes loading {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      @keyframes hide {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="popup">
+      <button class="closeBtn" id="closeBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="popup__container grid">
+        <div class="timeline flex__column">
+          <div class="timeline-item completed">
+            <div class="marker"></div>
+            <div class="details">
+              <h4>Order Placed</h4>
+              <p>Nov 14</p>
+            </div>
+          </div>
+          <div class="timeline-item active">
+            <div class="marker"></div>
+            <div class="details">
+              <h4>Processing</h4>
+              <p>Nov 15</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="marker"></div>
+            <div class="details">
+              <h4>Shipped</h4>
+              <p>Est. Nov 15</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="marker"></div>
+            <div class="details">
+              <h4>Delivered</h4>
+              <p>Est. Nov 16</p>
+            </div>
+          </div>
+        </div>
+        <div class="popup__order__details flex__column flex-start">
+          <div class="popup__order__details__header flex__column center">
+            <div class="product__name"></div>
+            <div class="order__Price"></div>
+            <div class="order__id"></div>
+            <div class="order__address"></div>
+          </div>
+          <div class="popup__order__details__body flex__row">
+            <div class="popup__order__image flex__row">
+              <img src="" alt="" class="" id="" />
+            </div>
+          </div>
+          <div class="popup__order__details__footer flex__row">
+            <button
+              class="btn review__btn popup__order__btn"
+              id="writeReviewBtn">
+              <i class="fa-regular fa-star popup__foooter__icon"></i> Write a
+              review
+            </button>
+            <button class="btn rebuy__btn popup__order__btn" id="reBuyBtn">
+              <i class="fa-solid fa-rotate-left popup__foooter__icon"></i> Buy
+              again
+            </button>
+            <button
+              class="btn cancel__btn popup__order__btn"
+              id="canelOrderBtn">
+              <i class="fa-solid fa-xmark popup__foooter__icon"></i> Cancel
+              order
+            </button>
+          </div>
+        </div>
+        <div class="review__container flex__column">
+          <div class="write__review__header flex__row">
+            <span class="write__header__text">Write a review</span>
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+          <div class="write__review__body flex__column">
+            <textarea
+              name="orderReview"
+              id="orderReview"
+              class="write__review__input"
+              placeholder="Type your review..."></textarea>
+          </div>
+          <div class="write__review__footer">
+            <button class="btn post__review__button" id="postReview">
+              Post Review
+            </button>
+          </div>
+        </div>
+        <div class="buy__again__container flex__column">
+          <div class="buy__again__header flex__row">
+            <span class="write__header__text">Buy Again</span>
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+          <div class="buy__again__body flex__column flex-start">
+            <div class="current__price">
+              Current price
+              <div>$35.70</div>
+            </div>
+            <select
+              name="buyAgainQuantity"
+              id="buyAgainQuantity"
+              class="select__quantity">
+              <option value="1">Qty: 1</option>
+              <option value="2">Qty:2</option>
+              <option value="3">Qty:3</option>
+            </select>
+          </div>
+          <div class="buy__again__footer flex__column">
+            <div class="total flex__row">
+              <span class="total__title">Total</span
+              ><span class="total__price">$35.70</span>
+            </div>
+            <button class="btn buy__again__button" id="buyAgain">
+              Buy Now
+            </button>
+          </div>
+        </div>
+        <div class="cancel__order__container flex__column">
+          <div class="cancel__order__header flex__row">
+            <span class="write__header__text">Cancel Order</span>
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+          <div class="cancel__order__body flex__column flex-start">
+            Do you wish to cancel your order?<br />
+            Note: Refunds may take up to 5 ~ 7 business days to reflect on your
+            account
+          </div>
+          <div class="cancel__order__footer">
+            <button class="btn cancel__order__button" id="cancelOrder">
+              Cancel Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../src/main.js"></script>
+    <script src="../../src/handleLogin.js"></script>
+    <script src="./bundle.js"></script>
+  </body>
+</html>

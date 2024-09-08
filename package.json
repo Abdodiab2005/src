@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "cropper": "^4.1.0",
+    "cropperjs": "^1.6.2",
+    "firebase": "^10.13.1",
+    "sweetalert2": "^11.6.13",
+    "webpack": "^5.94.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "Build": "webpack"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

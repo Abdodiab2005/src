@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <script src="../header.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+    <link rel="preconnect" href="https://firestore.googleapis.com" />
+    <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
+    <!-- fonts -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <!-- box-icons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+    <style>
+      body.loading-active {
+        pointer-events: none;
+        user-select: none;
+        overflow: hidden;
+      }
+
+      .circle-container {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.437);
+        pointer-events: all;
+        overflow: hidden;
+        z-index: 100;
+      }
+      .hideAnimate {
+        animation: fadeOut 0.3s forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      .circleInnerContent-container {
+        width: 100%;
+        height: 100%;
+        position: absolute; /* Changed to absolute to cover the image container */
+        background-color: rgba(0, 0, 0, 0.437);
+        pointer-events: none; /* Changed to none to avoid blocking interactions with the image container */
+        overflow: hidden;
+        z-index: 100;
+      }
+      .circleInnerContent {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px; /* Adjusted size */
+        height: 50px; /* Adjusted size */
+        border-radius: 50%;
+        border: 3px solid var(--Secondary-color-2);
+        border-top: 3px solid var(--Primary-color);
+        animation: loading 1.5s linear infinite;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 10px solid var(--Secondary-color-2);
+        border-top: 10px solid var(--Primary-color);
+        animation: loading 1.5s linear infinite;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+
+      @keyframes loading {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      @keyframes hide {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .main {
+        display: initial !important;
+      }
+    </style>
+    <!-- custom css -->
+    <link rel="stylesheet" href="../../styles/framework.css" />
+    <link rel="stylesheet" href="./profile.css" />
+    <link rel="stylesheet" href="../../styles/aside.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="../../styles/header.css" />
+  </head>
+  <body class="grid" id="root">
+    <!-- loading structure -->
+    <div class="circle-container loading-active">
+      <div class="circle"></div>
+    </div>
+
+    <main class="main" id="main">
+      <div id="cropModal" class="cropModal" style="display: none">
+        <div class="popup__content__container flex__row center" id="popup">
+          <button id="closeButton" class="btn close__btn">&times;</button>
+          <div id="cropContainer" class="crop__container">
+            <img
+              id="imagePreview"
+              src=""
+              alt="Image Preview"
+              class="image__preview" />
+          </div>
+          <button id="cropButton" class="btn crop__btn ripple-effect">
+            Crop & Upload
+          </button>
+        </div>
+      </div>
+      <section class="nav__data flex__column flex-start" id="overView">
+        <div class="section__title">Account overview</div>
+        <div class="userInfo__card flex__row space-between">
+          <div class="user__img__container">
+            <img
+              src="./user.jpg"
+              alt="user"
+              id="profileImage"
+              class="profile__img" />
+            <input
+              type="file"
+              id="imageInput"
+              accept="image/*"
+              style="display: none" />
+          </div>
+          <div class="userInfo__container">
+            <div class="user__info__header__data flex__column center">
+              <span class="hello"> Hello, </span>
+              <span class="name">Abdo Diab</span>
+            </div>
+          </div>
+          <div class="user__country flex__row center">
+            <img
+              src="https://flagcdn.com/w320/eg.png"
+              alt="Flag"
+              width="30px"
+              height="20px" />
+            Egypt
+          </div>
+        </div>
+        <form class="user__data__form flex__column flex-start">
+          <!-- Text Input -->
+          <div class="form-group flex__row space-around">
+            <div class="input__field__container">
+              <div class="group__inputs__container flex__column center">
+                <label for="firstName" class="label input__label"
+                  >First name</label
+                >
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  class="input"
+                  autocomplete="name" />
+                <span>First name</span>
+              </div>
+            </div>
+            <div class="input__field__container">
+              <div class="group__inputs__container flex__column center">
+                <label for="lastName" class="label input__label"
+                  >Last name</label
+                >
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  class="input"
+                  autocomplete="family-name" />
+                <span>Last name</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group flex__row space-around">
+            <div class="input__field__container">
+              <div class="group__inputs__container flex__column center">
+                <label for="phoneNumber" class="label input__label"
+                  >Phone number</label
+                >
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  class="input"
+                  autocomplete="mobile" />
+                <span>Phone number</span>
+              </div>
+            </div>
+            <div class="input__field__container">
+              <div
+                class="group__inputs__container focus birthDate__container flex__column center">
+                <label for="birthDate" class="label input__label"
+                  >Birth date</label
+                >
+                <input
+                  type="date"
+                  id="birthDate"
+                  name="birthDate"
+                  class="input"
+                  autocomplete="bday" />
+                <input type="hidden" id="age" />
+                <span>Birth date</span>
+              </div>
+            </div>
+          </div>
+          <!-- Select Dropdown -->
+          <div class="form-group flex__row space-around">
+            <div
+              class="form-group country__selection__container flex__row center">
+              <label for="country" class="label">Country:</label>
+              <select
+                id="country"
+                name="country"
+                autocomplete="country"
+                class="country__selector">
+                <option class="country__select" value="eg">Egypt</option>
+                <option class="country__select" value="us">United</option>
+                <option class="country__select" value="li">Libanon</option>
+              </select>
+            </div>
+            <div class="form-group city__container flex__row center">
+              <label for="city" class="label">city:</label>
+              <select id="city" name="city" class="country__selector">
+                <option class="country__select" value="eg1">Damietta</option>
+                <option class="country__select" value="us2">Giza</option>
+                <option class="country__select" value="li3">Alex</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group gender__container flex__row flex-start">
+            <span>Gender:</span>
+            <div class="male__container">
+              <label class="custom-radio">
+                <input type="radio" name="gender" id="male" value="male" />
+                <span class="radiomark"></span>
+                Male
+              </label>
+            </div>
+            <div class="female__container">
+              <label class="custom-radio">
+                <input type="radio" name="gender" id="female" value="female" />
+                <span class="radiomark"></span>
+                Female
+              </label>
+            </div>
+          </div>
+
+          <!-- Checkbox -->
+          <div class="form-group subscribe__container flex__row flex-start">
+            <!-- <input type="checkbox"  />
+                <label for="subscribe">Subscribe to our newsletter</label> -->
+            <label class="custom-checkbox">
+              <input type="checkbox" id="subscribe" name="subscribe" />
+              <span class="checkmark"></span>
+              Subscribe to our newsletter
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group">
+            <button
+              type="submit"
+              class="btn update__btn ripple-effect"
+              id="updateUserData">
+              Update data
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="../src/main.js"></script> -->
+    <script src="../../js/myFramework.js"></script>
+
+    <!-- <script src="../aside.js"></script> -->
+    <script src="../../js/handleLogin.js"></script>
+    <script src="./overviewBundled.js"></script>
+    <!-- <script src="./bundledScript.js"></script> -->
+  </body>
+</html>

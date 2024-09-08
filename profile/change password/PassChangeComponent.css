@@ -1,0 +1,74 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+.slider {
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.4s;
+}
+.switch.checked {
+  background-color: var(--Primary-color);
+}
+.switch.checked .slider {
+  transform: translateX(25px);
+}
+.passChangeComponent {
+  gap: 20px;
+}
+.section__data {
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+}
+section {
+  width: 100%;
+  min-height: 100%;
+}
+.section__data__card {
+  width: 100%;
+  padding-left: 35px;
+  margin-top: 10px;
+  gap: 10px;
+}
+.enable__auth__card {
+  align-items: self-start;
+  justify-content: flex-start;
+  gap: 35px;
+}
+.setcion__data__card__title {
+  width: 100%;
+  text-align: left;
+}
+.enable__auth__card .setcion__data__card__title {
+  width: auto;
+}
+.old__pass__input {
+  width: calc(50% - 10px);
+  height: 40px;
+}
+.new__pass__input {
+  height: 40px;
+}
+.pass__input__container {
+  width: 90%;
+  gap: 20px;
+}
+
+.change__pass__container {
+  width: 100%;
+  min-height: 100px;
+  height: max-content;
+  gap: 20px;
+}

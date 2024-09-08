@@ -1,0 +1,521 @@
+.sign__section {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.sign__form {
+  width: 50%;
+  height: 100%;
+  background-color: #fff;
+  padding: 0 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign__in__form {
+  width: 50%;
+  z-index: 2;
+}
+
+.sign__up__form {
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.overlay-container {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 80vw;
+}
+
+.section__header {
+  height: 25%;
+  width: 100%;
+  padding: 30px 10px 10px 20px;
+}
+
+.form__title {
+  font-size: 30px;
+  font-weight: 500;
+  width: 50%;
+  color: #8a8a8a;
+  text-transform: capitalize;
+}
+
+.form__header__icons {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header_icon {
+  font-size: 22px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #e3e3e3;
+  color: #8a8a8a;
+  transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.header_icon:hover {
+  color: #e5636b;
+}
+
+.form__body {
+  width: 100%;
+  height: 80%;
+  gap: 20px;
+  padding: 20px;
+}
+
+.email__inputs__container,
+.password__inputs__container,
+.name__inputs__container {
+  width: 100%;
+  height: 25%;
+  text-align: left;
+}
+
+.log__btn__container {
+  height: 30% !important;
+  gap: 10px;
+  width: 100%;
+}
+
+.label__container {
+  width: 100%;
+  height: 40%;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 98%;
+  height: 60%;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #f2f2f2;
+}
+
+.log__btn {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.google__btn {
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #fff;
+  background-color: #ffa1a7;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.form__footer {
+  width: 95%;
+  height: 15%;
+}
+
+.check__box__container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.forgot__pass a {
+  color: #8a8a8a;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.forgot__pass a:hover {
+  color: #e5636b;
+}
+
+.overlay-container {
+  gap: 12px;
+  background-color: #e5636b;
+}
+
+.overlay__header {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.overlay__body {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.handle__sign__btn {
+  height: 50px;
+  width: 120px;
+  border-radius: 25px;
+  color: #fff;
+  background-color: transparent;
+  border: 2px solid #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+  transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.handle__sign__btn:hover {
+  color: #e5636b;
+  background-color: #fff;
+  border: 2px solid #e5636b;
+}
+
+.remember__me__label {
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  color: #e5636b;
+  gap: 5px;
+}
+
+/* Hide the default checkbox */
+.checkMark {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Create a custom checkbox */
+.remember__me__label .checkmark {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: #ffe1e28f;
+  border-radius: 5px;
+  /* Rounded corners */
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #e5636b;
+  transition: 0.2s;
+}
+
+/* On mouse-over, add a grey background color */
+.remember__me__label:hover .checkmark {
+  background-color: #ffa1a7;
+}
+
+/* When the checkbox is checked, add a blue background */
+.remember__me__label input:checked + .checkmark {
+  background-color: #e5636b;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.remember__me__label .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.remember__me__label input:checked + .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.remember__me__label .checkmark:after {
+  left: 6px;
+  top: 17%;
+  width: 3px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 1370px) {
+  .sign__section {
+    width: 90vw;
+    height: 85vh;
+  }
+
+  .section__header {
+    padding: 10px 20px 0 10px;
+    height: 15%;
+  }
+
+  .email__inputs__container,
+  .password__inputs__container,
+  .name__inputs__container {
+    height: 20%;
+  }
+}
+
+@media (max-width: 1067px) {
+  .sign__section {
+    flex-direction: column-reverse;
+    height: 80vh;
+  }
+
+  .overlay-container {
+    width: 100%;
+    height: 25%;
+  }
+
+  .sign__form {
+    width: 100%;
+    height: 75%;
+  }
+
+  .log__btn {
+    border-radius: 35px;
+  }
+
+  .header_icon:hover {
+    color: #8a8a8a;
+  }
+
+  .forgot__pass a:hover {
+    color: #8a8a8a;
+  }
+
+  .remember__me__label:hover .checkmark {
+    background-color: #ffe1e28f;
+  }
+
+  .handle__sign__btn:hover {
+    background-color: #e5636b;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+
+  .overlay__header {
+    font-size: 24px;
+  }
+
+  .overlay__body {
+    font-size: 16px;
+  }
+
+  .handle__sign__btn {
+    height: 35px;
+    width: 85px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px;
+    margin-top: 0;
+  }
+
+  .form__title {
+    font-size: 20px;
+  }
+
+  .header_icon {
+    font-size: 18px;
+    padding: 8px;
+  }
+
+  .section__header {
+    height: 10%;
+  }
+}
+
+@media (max-width: 729px) {
+  .sign__section {
+    width: 95vw;
+    height: 90vh;
+  }
+
+  .remember__me__label {
+    font-size: 16px;
+  }
+
+  .remember__me__label .checkmark {
+    height: 14px;
+    width: 14px;
+  }
+
+  .remember__me__label .checkmark:after {
+    left: 4px;
+    top: 10%;
+    width: 2px;
+    height: 6px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .forgot__pass a {
+    font-size: 14px;
+  }
+
+  .email__inputs__container,
+  .password__inputs__container,
+  .name__inputs__container {
+    height: 20%;
+  }
+}
+
+@media (max-width: 595px) {
+  .form__footer {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .check__box__container,
+  .forgot__pass {
+    width: 100%;
+  }
+
+  .sign__form {
+    padding: 0 10px;
+  }
+
+  .log__btn__container {
+    height: 30% !important;
+    gap: 10px;
+  }
+
+  .google__btn {
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: #fff;
+    background-color: #ffa1a7;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .login__section {
+    gap: 5px;
+  }
+}
+
+@media (max-width: 375px) and (max-height: 999px) {
+  body {
+    height: max-content;
+    overflow-y: scroll;
+  }
+
+  .sign__section {
+    height: fit-content;
+    margin: 20px 0;
+  }
+
+  .sign__form,
+  .form__body,
+  .log__btn__container,
+  .overlay-container {
+    height: fit-content;
+  }
+
+  .overlay-container {
+    padding: 20px;
+  }
+}
+
+.sign__section.right-panel-active .sign__in__form {
+  transform: translateX(100%);
+}
+
+.sign__section.right-panel-active .sign__up__form {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+
+.sign__section.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  position: relative;
+  right: 50%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.sign__section.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.overlay-left,
+.overlay-right {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 48px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  transform: translateX(0);
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.sign__section.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.sign__section.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}

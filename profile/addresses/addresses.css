@@ -1,0 +1,301 @@
+.add__new__address__btn {
+  width: 180px;
+  background: transparent;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: background-color 0.3s, color 0.3s;
+  color: var(--Secondary-color-1);
+}
+.add__new__address__btn:hover {
+  /* background-color: var(--Primary-color); */
+  color: var(--Primary-color);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+.slider {
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  border-radius: 50%;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.4s;
+}
+.switch.checked {
+  background-color: var(--Primary-color);
+}
+.switch.checked .slider {
+  transform: translateX(25px);
+}
+.edit__btn {
+  height: 35px;
+  width: 75px;
+  /* background-color: #fff; */
+  color: var(--Secondary-color-1);
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+.edit__btn:hover {
+  color: var(--Primary-color);
+  /* background-color: var(--Primary-color); */
+}
+.address__cards {
+  height: max-content;
+  min-height: 90%;
+}
+.address__card {
+  min-height: 100px;
+  height: max-content;
+  border: 2px solid var(--Primary-color);
+  position: relative;
+}
+.address__card__body__container {
+  text-align: left;
+}
+.address__propert__text {
+  width: 100%;
+}
+.addresses__number {
+  font-size: 18px;
+  background-color: var(--Primary-color);
+  color: #fff;
+  width: 100px;
+}
+.address__remove__btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #e63946;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px;
+  width: 90px;
+  height: 40px;
+  transition: 0.3s;
+}
+.address__remove__btn:hover,
+.address__remove__btn:active {
+  background-color: #b62222;
+}
+.add__new__address__popup {
+  position: fixed;
+  background-color: #0c0c0ca8;
+  z-index: 12;
+}
+.address__popup__container {
+  background-color: #fff;
+}
+.address__popup__header {
+  height: 50px;
+}
+.popup__header__title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--Primary-color);
+  padding-left: 20px;
+}
+.fa-xmark {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.close-icon {
+  font-size: 26px;
+  color: var(--Primary-color);
+}
+body.address__popup__active {
+  overflow: hidden;
+  -moz-user-select: none;
+}
+body {
+  position: relative;
+}
+.address__popup__active {
+  position: fixed;
+}
+.address__popup__body {
+  height: 80%;
+}
+.popup__inputs__container {
+  height: 100%;
+}
+.input__container {
+  grid-template-columns: 15% 50%;
+  width: 90%;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  height: 45px;
+  border-radius: 8px;
+  color: var(--Primary-color);
+}
+.popup__address__title {
+  font-size: 20px;
+  color: var(--Primary-color);
+  font-weight: 500;
+  text-align: left;
+}
+.address__popup__footer__btn {
+  font-size: 18px;
+  width: 120px;
+  height: 50px;
+  color: #fff;
+}
+.address__popup__footer__btn.add__btn,
+.address__popup__footer__btn.edit__popup__btn {
+  background-color: var(--Primary-color);
+}
+.address__popup__footer__btn.cancel__btn {
+  background-color: #e63946;
+}
+.select {
+  height: 40px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  outline: 2px solid var(--Primary-color);
+}
+@media (max-width: 1250px) {
+  .input__container {
+    grid-template-columns: 25% 50%;
+  }
+}
+@media (max-width: 768px) {
+  .add__new__address__btn {
+    font-size: 16px;
+  }
+  .switch.checked .slider {
+    transform: translateX(20px);
+  }
+  .slider {
+    height: 16px;
+    width: 16px;
+    left: 2px;
+  }
+  .switch {
+    width: 40px;
+    height: 20px;
+  }
+  .addresses__header__btns__container {
+    gap: 0;
+  }
+  .address__remove__btn {
+    width: 75px;
+    height: 35px;
+    font-size: 12px;
+  }
+
+  .address__card__footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  .input__container {
+    grid-template-columns: 35% 65%;
+  }
+}
+@media (max-width: 500px) {
+  .address__card {
+    padding: 10px;
+  }
+  .address__propert__text {
+    font-size: 16px;
+  }
+  .address__property__name {
+    display: none;
+  }
+  .edit__btn {
+    position: absolute;
+    top: 37%;
+    right: 10px;
+    background-color: var(--Primary-color);
+    color: #fff;
+    font-size: 12px;
+    height: 35px;
+    width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+  }
+  .edit__btn i {
+    font-size: 10px;
+  }
+  .input {
+    padding: 5px 10px;
+    width: 90%;
+    height: 35px;
+    font-size: 14px;
+  }
+  .input__container {
+    grid-template-columns: 30% 70%;
+  }
+  .address__popup__container {
+    padding: 10px;
+  }
+  .popup__header__title {
+    font-size: 20px;
+  }
+  .popup__address__title {
+    font-size: 16px;
+  }
+  .edit__popup__btn,
+  .cancel__btn,
+  .add__btn {
+    height: 40px;
+    width: 90px;
+    font-size: 14px;
+  }
+  .edit__popup__btn i {
+    font-size: 12px;
+  }
+  .edit__btn i {
+    font-size: 10px;
+  }
+  .address__remove__btn {
+    right: 0;
+    bottom: 0;
+  }
+  .edit__btn {
+    padding: 5px;
+  }
+}
+@media (max-width: 400px) {
+  .address__card__footer {
+    position: inherit;
+    margin-top: 15px;
+  }
+  .edit__btn {
+    top: 74%;
+    right: 65%;
+  }
+  .address__card__header__container span {
+    padding: 0;
+  }
+  .logout__btn__container {
+    padding: 0;
+    width: 100%;
+  }
+  .addresses__number__card {
+    padding: 0;
+  }
+  .address__remove__btn {
+    position: inherit;
+  }
+}

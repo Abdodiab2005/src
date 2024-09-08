@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security</title>
+    <link rel="stylesheet" href="../styles/framework.css" />
+    <link rel="stylesheet" href="../styles/header.css" />
+    <link rel="stylesheet" href="../styles/aside.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
+    <link rel="stylesheet" href="../styles/PassChangeComponent.css" />
+    <script src="../js/header.js"></script>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/dist/boxicons.min.js"
+      integrity="sha512-y8/3lysXD6CUJkBj4RZM7o9U0t35voPBOSRHLvlUZ2zmU+NLQhezEpe/pMeFxfpRJY7RmlTv67DYhphyiyxBRA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/animations.min.css"
+      integrity="sha512-GKHaATMc7acW6/GDGVyBhKV3rST+5rMjokVip0uTikmZHhdqFWC7fGBaq6+lf+DOS5BIO8eK6NcyBYUBCHUBXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+  </head>
+  <body class="grid" id="root">
+    <div class="main">
+      <section class="passChangeComponent flex__column flex-start">
+        <div class="section__title">Security</div>
+        <div class="section__data flex__column flex-start">
+          <div class="section__data__card enable__auth__card flex__row center">
+            <h3 class="setcion__data__card__title">
+              Enable two factor authentication
+            </h3>
+            <div class="switch" id="switch">
+              <div class="slider"></div>
+            </div>
+          </div>
+
+          <div class="section__data__card flex__column center">
+            <h3 class="setcion__data__card__title">Change password</h3>
+            <div class="change__pass__container flex__column center">
+              <div
+                class="old__pass pass__input__container flex__row flex-start">
+                <input
+                  class="input old__pass__input"
+                  id="oldPass1"
+                  name="oldass1"
+                  placeholder="Old password"
+                  key="oldPass1" />
+              </div>
+              <div
+                class="new__pass pass__input__container flex__row flex-start">
+                <input
+                  class="input new__pass__input"
+                  id="newPass1"
+                  name="newPass1"
+                  placeholder="New password"
+                  key="newPass1" />
+                <input
+                  class="input new__pass__input"
+                  id="newPass2"
+                  name="newPass2"
+                  placeholder="Confirm new password"
+                  key="newPass2" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="../js/handleLogin.js"></script>
+    <script>
+      const switchButton = document.getElementById("switch");
+      switchButton.addEventListener("click", function () {
+        switchButton.classList.toggle("checked");
+      });
+    </script>
+  </body>
+</html>
