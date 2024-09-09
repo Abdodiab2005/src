@@ -110,6 +110,22 @@
     padding: 0;
   }
 }
+@media (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+  .sections__container {
+    align-items: flex-end;
+  }
+  .nav__item {
+    width: 90%;
+  }
+  .logout__btn__container {
+    margin: 0;
+    padding: 0;
+    width: 90%;
+  }
+}
 @media (max-width: 600px) {
   .nav__item {
     padding-left: 10px;

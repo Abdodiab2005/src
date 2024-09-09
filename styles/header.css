@@ -28,7 +28,9 @@ aside {
   outline: var(--Primary-color);
   border-radius: 5px 0 0 5px;
 }
-
+.menu__icon {
+  display: none !important;
+}
 .nav__header {
   width: 100%;
   justify-content: space-between;
@@ -309,7 +311,7 @@ aside {
   .menu__icon {
     font-size: 20px;
     color: #fff;
-    display: block;
+    display: block !important;
   }
 
   .nav__header {
@@ -327,9 +329,6 @@ aside {
     float: none;
     display: block;
     text-align: left;
-  }
-  .nav__data {
-    padding: 10px 20px;
   }
 }
 @media (max-width: 486px) {

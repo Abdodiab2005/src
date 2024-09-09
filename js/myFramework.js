@@ -227,11 +227,11 @@ function getLocStore(item) {
   return localStorage.getItem(item);
 }
 function setLocStore(key, value) {
-  localStorage.setItem(key, value);
+  return localStorage.setItem(key, value);
 }
 function getSessionStore(key, value) {
-  sessionStorage.getItem(key, value);
+  return sessionStorage.getItem(key, value);
 }
 function setSessionStore(key, value) {
-  sessionStorage.setItem(key, value);
+  return sessionStorage.setItem(key, value);
 }

@@ -127,7 +127,7 @@ function resizeAndConvertToWebP(file) {
 }
 
 function uploadImageToFirebase(blob) {
-  const storageRef = ref(storage, `optimized-images/${Date.now()}.webp`);
+  const storageRef = ref(storage, `userPofileImgs/${Date.now()}.webp`);
   const path = storageRef.fullPath;
   setSessionStore("path", path);
   return uploadBytesResumable(storageRef, blob)
@@ -137,12 +137,30 @@ function uploadImageToFirebase(blob) {
 
 function deleteOldImageFromFirebase(imagePath) {
   if (!imagePath) {
+    console.log("can't find path", imagePath);
     return;
+  } else {
+    const imageRef = ref(storage, imagePath);
+    console.log("img found: ", imageRef);
+    return deleteObject(imageRef);
   }
+}
 
-  const imageRef = ref(storage, imagePath);
+function getDefaultProfileImageUrl() {
+  return "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/user.jpg?alt=media&token=1a6064c6-da7e-419d-ad0f-4c2f16bc2df9";
+}
 
-  return deleteObject(imageRef);
+function handleProfileImage() {
+  if (
+    getLocStore("profileImageURL") ==
+    "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/user.jpg?alt=media&token=1a6064c6-da7e-419d-ad0f-4c2f16bc2df9"
+  ) {
+    console.log("default profile img");
+    document.getElementById("profileImage").src = getDefaultProfileImageUrl();
+  } else {
+    document.getElementById("profileImage").src =
+      getLocStore("profileImageURL");
+  }
 }
 
 $("#imageInput").on("change", (event) => {
@@ -158,6 +176,8 @@ $("#imageInput").on("change", (event) => {
 
       console.log("crop modal preview opening");
       document.getElementById("cropModal").style.display = "flex";
+      document.body.classList.add("loading-active");
+      document.body.style.pointerEvents = "all";
       console.log("crop modal preview finished");
       initializeCropper(imagePreview);
     };
@@ -180,7 +200,6 @@ function initializeCropper(imageElement) {
   };
 
   document.getElementById("cropButton").onclick = () => {
-    console.log("Crop button clicked");
     cropper.getCroppedCanvas().toBlob((blob) => {
       if (blob) {
         console.log("blob: ", blob);
@@ -200,46 +219,69 @@ function initializeCropper(imageElement) {
 
 function closeCropModal() {
   document.getElementById("cropModal").style.display = "none";
+  document.body.classList.remove("loading-active");
 }
 
 async function handleImageUpload(file) {
   console.log("Starting image upload: ", file);
-  if (navigator.onLine) {
-    try {
-      const imageContainer = document.querySelector(".user__img__container");
-      const profileImg = document.getElementById("profileImage");
-      const animationContainer = document.createElement("div");
-      const circle = document.createElement("div");
-      animationContainer.classList.add("circleInnerContent-container");
-      circle.classList.add("circleInnerContent");
-      animationContainer.appendChild(circle);
-      imageContainer.style.position = "relative";
-      imageContainer.appendChild(animationContainer);
-      const resizedImageBlob = await resizeAndConvertToWebP(file);
-      const newImageUrl = await uploadImageToFirebase(
-        resizedImageBlob,
-        "cropped-images"
-      );
-      profileImg.src = newImageUrl;
-      animationContainer.remove();
-      topRightSwal(
-        "photo uploaded successfully, please press update data button to save it",
-        "success",
-        6000
-      );
 
-      return newImageUrl;
-    } catch (error) {
-      topRightSwal(`error: ${error.message}`, "error", 5000, "#000");
-      document.querySelector(".circleInnerContent-container")?.remove();
-    }
-  } else {
-    topRightSwal(
+  if (!navigator.onLine) {
+    return topRightSwal(
       "You're offline, please check your internet connection",
       "error",
       3000,
       "red"
     );
+  }
+  try {
+    const imageContainer = document.querySelector(".user__img__container");
+    const profileImg = document.getElementById("profileImage");
+    const animationContainer = document.createElement("div");
+    const circle = document.createElement("div");
+    const userDocRef = doc(db, "users", getLocStore("uid"));
+
+    animationContainer.classList.add("circleInnerContent-container");
+    circle.classList.add("circleInnerContent");
+    animationContainer.appendChild(circle);
+    imageContainer.style.position = "relative";
+    imageContainer.appendChild(animationContainer);
+
+    // Resize and upload image
+    const resizedImageBlob = await resizeAndConvertToWebP(file);
+    const newImageUrl = await uploadImageToFirebase(
+      resizedImageBlob,
+      "cropped-images"
+    );
+
+    // Update the profile image on the page
+    profileImg.src = newImageUrl;
+
+    // Delete old image if it exists
+    if (
+      getSessionStore("oldImage") !==
+      "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/user.jpg?alt=media&token=1a6064c6-da7e-419d-ad0f-4c2f16bc2df9"
+    ) {
+      console.log("deleting...", getSessionStore("oldImage"));
+      await deleteOldImageFromFirebase(getSessionStore("oldImage"));
+      console.log("deleted");
+    }
+
+    // Update Firestore user document with new image URL
+    await setDoc(userDocRef, { profileImageUrl: newImageUrl }, { merge: true });
+
+    // Update local and session storage
+    setLocStore("profileImageURL", newImageUrl);
+    setSessionStore("oldImage", newImageUrl);
+
+    // Remove animation and show success message
+    animationContainer.remove();
+    topRightSwal("Photo updated successfully", "success", 6000);
+
+    return newImageUrl;
+  } catch (error) {
+    console.error("Image upload error: ", error);
+    topRightSwal(`Error: ${error.message}`, "error", 5000, "#000");
+    document.querySelector(".circleInnerContent-container")?.remove();
   }
 }
 
@@ -278,17 +320,22 @@ function handleFullName() {
   let fullName;
   if (getLocStore("firstName")) {
     firstName = getLocStore("firstName");
+    console.log(firstName);
   }
   if (getLocStore("lastName")) {
     lastName = getLocStore("lastName");
+    console.log(lastName);
   }
   $("#firstName").on("keyup", () => {
     firstName = $("#firstName").val().value;
+    console.log("typing first name", firstName);
   });
   $("#lastName").on("keyup", () => {
     lastName = $("#lastName").val().value;
+    console.log("typing last name: ", lastName);
   });
   fullName = firstName + " " + lastName;
+  console.log("fullName = ", firstName + " " + lastName);
   return fullName;
 }
 
@@ -382,14 +429,8 @@ function handleGender() {
       setSessionStore("gender", genderValue);
     });
   });
+  console.log("gender value:", genderValue);
   return genderValue;
-}
-
-function handleProfileImage() {
-  if (getLocStore("profileImageURL") != "null") {
-    $("#profileImage").attr("src", getLocStore("profileImageURL"));
-  }
-  return $("#profileImage").getAttr("src");
 }
 
 $(".user__data__form").on("submit", (form) => {
@@ -399,130 +440,239 @@ $(".user__data__form").on("submit", (form) => {
 
 // ? Edit and send data
 
+// function updateUserData(uid) {
+//   if (navigator.onLine) {
+//     showLoadingAnimation();
+//     if (getLocStore("profileImageUrl") !== profileImage.src) {
+//       deleteOldImageFromFirebase(getSessionStore("oldImage"));
+//     }
+//     function checkGender() {
+//       let value;
+//       if (getSessionStore("gender")) {
+//         setLocStore("gender", getSessionStore("gender"));
+//         value = getSessionStore("gender");
+//       } else {
+//         setLocStore("gender", handleGender());
+//         value = handleGender();
+//       }
+//       return value;
+//     }
+//     setLocStore("firstName", $("#firstName").val().value);
+//     setLocStore("lastName", $("#lastName").val().value);
+//     setLocStore("phoneNumber", $("#phoneNumber").val().value);
+//     setLocStore("birthDate", $("#birthDate").val().value);
+
+//     setLocStore("age", $("#age").val().value);
+//     setLocStore(
+//       "subscribeToNews",
+//       document.querySelector('input[name="subscribe"]').checked ? true : false
+//     );
+//     setLocStore(
+//       "displayName",
+//       $("#firstName").val().value + " " + $("#lastName").val().value
+//     );
+//     if (
+//       getLocStore("profileImageUrl") !== "null" ||
+//       document.getElementById("profileImage").src !== "user.jpg"
+//     ) {
+//       console.log("setting local store: ");
+//       setLocStore(
+//         "profileImageUrl",
+//         document.getElementById("profileImage").src
+//       );
+//     } else {
+//       document.getElementById("profileImage").src !==
+//         "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/user.jpg?alt=media&token=1a6064c6-da7e-419d-ad0f-4c2f16bc2df9";
+//       setLocStore(
+//         "profileImageUrl",
+//         "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/user.jpg?alt=media&token=1a6064c6-da7e-419d-ad0f-4c2f16bc2df9"
+//       );
+//     }
+//     document.querySelector(".name").textContent = getLocStore("displayName");
+//     setSessionStore("oldImage", getLocStore("profileImageUrl"));
+//     const userDocRef = doc(db, "users", uid);
+//     let userData = {
+//       firstName: handlefirstName() || "",
+//       lastName: handleLastName() || "",
+//       displayName: handleFullName() || "",
+//       phoneNumber: handlePhoneNumber() || "",
+//       age: $("#age").val().value || "",
+//       birthDate: handleBirthDate() || "",
+//       gender: checkGender() || "",
+//       subscribeToNews: handleSubscribtion() || "",
+//       orders: [
+//         {
+//           number: "#001",
+//           uid: "653hhjb437673fd",
+//           date: "18/9/2023",
+//           name: "TV",
+//           price: 1200,
+//           quantity: 1,
+//           address: "New damietta",
+//           status: "compeleted",
+//           img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct8.avif?alt=media&token=c6cb3c2c-5783-4319-9051-3e7cbb450681",
+//         },
+//         {
+//           number: "#002",
+//           uid: "efwefewrf4457h465",
+//           date: "18/7/2023",
+//           name: "chair",
+//           price: 350,
+//           quantity: 1,
+//           address: "New damietta",
+//           status: "pending",
+//           img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct%204.avif?alt=media&token=c7d41c00-c8a1-4310-849b-a5e441b9a5e1",
+//         },
+//         {
+//           number: "#003",
+//           uid: "3982jhif38few",
+//           date: "18/12/2023",
+//           name: "watch",
+//           price: 500,
+//           quantity: 1,
+//           address: "New damietta",
+//           status: "cancelled",
+//           img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct6.webp?alt=media&token=003988cd-0547-41df-9843-eff423c2dd1a",
+//         },
+//       ],
+//       profileImageUrl: handleProfileImage(),
+//     };
+
+//     return getDoc(userDocRef)
+//       .then(() => {
+//         console.log(userData);
+//         return setDoc(
+//           userDocRef,
+//           {
+//             firstName: userData.firstName,
+//             lastName: userData.lastName,
+//             displayName: userData.displayName,
+//             phoneNumber: userData.phoneNumber,
+//             birthDate: userData.birthDate,
+//             age: userData.age,
+//             gender: userData.gender,
+//             orders: userData.orders,
+//             subscribeToNews: document.querySelector('input[name="subscribe"]')
+//               .checked,
+//             profileImageUrl: userData.profileImageUrl,
+//           },
+//           { merge: true }
+//         ).then(() => {
+//           setTimeout(() => {
+//             hideLoadingAnimation();
+//           }, 300);
+//           topRightSwal("saved successfully", "success", 3000);
+//         });
+//       })
+
+//       .catch((error) => {
+//         console.log("error: ", error);
+//         topRightSwal(`error: ${error.message}`, "error", 5000, "#ff1f2f");
+//       });
+//   } else {
+//     topRightSwal(
+//       "You're offline, please check your internet connection",
+//       "error",
+//       3000,
+//       "red"
+//     );
+//   }
+// }
 function updateUserData(uid) {
-  if (navigator.onLine) {
-    showLoadingAnimation();
-    if (getLocStore("profileImageURL") !== profileImage.src) {
-      deleteOldImageFromFirebase(getSessionStore("oldImage"));
-    }
-    function checkGender() {
-      let value;
-      if (getSessionStore("gender")) {
-        setLocStore("gender", getSessionStore("gender"));
-        value = getSessionStore("gender");
-      } else {
-        setLocStore("gender", handleGender());
-        value = handleGender();
-      }
-      return value;
-    }
-    setLocStore("firstName", $("#firstName").val().value);
-    setLocStore("lastName", $("#lastName").val().value);
-    setLocStore("phoneNumber", $("#phoneNumber").val().value);
-    setLocStore("birthDate", $("#birthDate").val().value);
-
-    setLocStore("age", $("#age").val().value);
-    setLocStore(
-      "subscribeToNews",
-      document.querySelector('input[name="subscribe"]').checked ? true : false
-    );
-    setLocStore(
-      "displayName",
-      $("#firstName").val().value.value + " " + $("#lastName").val().value.value
-    );
-    setLocStore("profileImageURL", document.getElementById("profileImage").src);
-    document.querySelector(".name").textContent = getLocStore("displayName");
-    setSessionStore("oldImage", getLocStore("profileImageURL"));
-    const userDocRef = doc(db, "users", uid);
-    let userData = {
-      firstName: handlefirstName() || "",
-      lastName: handleLastName() || "",
-      displayName: handleFullName() || "",
-      phoneNumber: handlePhoneNumber() || "",
-      age: $("#age").val().value || "",
-      birthDate: handleBirthDate() || "",
-      gender: checkGender() || "",
-      subscribeToNews: handleSubscribtion() || "",
-      // country: $("#country").val().value,
-      // city: $("#city").val().value,
-      // address1: $("#firstName").val().value,
-      // address2: $("#firstName").val().value,
-      orders: [
-        {
-          number: "#001",
-          uid: "653hhjb437673fd",
-          date: "18/9/2023",
-          name: "TV",
-          price: 1200,
-          quantity: 1,
-          address: "New damietta",
-          status: "compeleted",
-          img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct8.avif?alt=media&token=c6cb3c2c-5783-4319-9051-3e7cbb450681",
-        },
-        {
-          number: "#002",
-          uid: "efwefewrf4457h465",
-          date: "18/7/2023",
-          name: "chair",
-          price: 350,
-          quantity: 1,
-          address: "New damietta",
-          status: "pending",
-          img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct%204.avif?alt=media&token=c7d41c00-c8a1-4310-849b-a5e441b9a5e1",
-        },
-        {
-          number: "#003",
-          uid: "3982jhif38few",
-          date: "18/12/2023",
-          name: "watch",
-          price: 500,
-          quantity: 1,
-          address: "New damietta",
-          status: "cancelled",
-          img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct6.webp?alt=media&token=003988cd-0547-41df-9843-eff423c2dd1a",
-        },
-      ],
-      // wishList: [],
-      profileImageURL: handleProfileImage(),
-    };
-
-    return getDoc(userDocRef)
-      .then(() => {
-        console.log(userData);
-        return setDoc(
-          userDocRef,
-          {
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            displayName: userData.displayName,
-            phoneNumber: userData.phoneNumber,
-            birthDate: userData.birthDate,
-            age: userData.age,
-            gender: userData.gender,
-            orders: userData.orders,
-            subscribeToNews: document.querySelector('input[name="subscribe"]')
-              .checked,
-            profileImageUrl: userData.profileImageURL,
-          },
-          { merge: true }
-        ).then(() => {
-          setTimeout(() => {
-            hideLoadingAnimation();
-          }, 300);
-          topRightSwal("saved successfully", "success", 3000);
-        });
-      })
-
-      .catch((error) => {
-        console.log("error: ", error);
-        topRightSwal(`error: ${error.message}`, "error", 5000, "#ff1f2f");
-      });
-  } else {
-    topRightSwal(
+  if (!navigator.onLine) {
+    return topRightSwal(
       "You're offline, please check your internet connection",
       "error",
       3000,
       "red"
     );
+  } else {
+    showLoadingAnimation();
+
+    const checkGender = () => {
+      const gender = getSessionStore("gender") || handleGender();
+      setLocStore("gender", gender);
+      return gender;
+    };
+
+    // Update local storage
+    ["firstName", "lastName", "phoneNumber", "birthDate", "age"].forEach(
+      (id) => {
+        setLocStore(id, $(`#${id}`).val().value);
+      }
+    );
+
+    setLocStore(
+      "subscribeToNews",
+      document.querySelector('input[name="subscribe"]').checked
+    );
+    setLocStore(
+      "displayName",
+      `${$("#firstName").val().value} ${$("#lastName").val().value}`
+    );
+
+    document.querySelector(".name").textContent = getLocStore("displayName");
+
+    const userDocRef = doc(db, "users", uid);
+    const userData = {
+      firstName: handlefirstName(),
+      lastName: handleLastName(),
+      displayName: handleFullName(),
+      phoneNumber: handlePhoneNumber(),
+      age: $("#age").val().value,
+      birthDate: handleBirthDate(),
+      gender: checkGender(),
+      subscribeToNews: document.querySelector('input[name="subscribe"]')
+        .checked,
+      orders: getSampleOrders(),
+    };
+
+    return getDoc(userDocRef)
+      .then(() => setDoc(userDocRef, userData, { merge: true }))
+      .then(() => {
+        hideLoadingAnimation();
+        topRightSwal("Saved successfully", "success", 3000);
+      })
+      .catch((error) => {
+        topRightSwal(`Error: ${error.message}`, "error", 5000, "#ff1f2f");
+      });
+  }
+
+  function getSampleOrders() {
+    return [
+      {
+        number: "#001",
+        uid: "653hhjb437673fd",
+        date: "18/9/2023",
+        name: "TV",
+        price: 1200,
+        quantity: 1,
+        address: "New damietta",
+        status: "completed",
+        img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct8.avif?alt=media&token=c6cb3c2c-5783-4319-9051-3e7cbb450681",
+      },
+      {
+        number: "#002",
+        uid: "efwefewrf4457h465",
+        date: "18/7/2023",
+        name: "Chair",
+        price: 350,
+        quantity: 1,
+        address: "New damietta",
+        status: "pending",
+        img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct%204.avif?alt=media&token=c7d41c00-c8a1-4310-849b-a5e441b9a5e1",
+      },
+      {
+        number: "#003",
+        uid: "3982jhif38few",
+        date: "18/12/2023",
+        name: "Watch",
+        price: 500,
+        quantity: 1,
+        address: "New damietta",
+        status: "cancelled",
+        img: "https://firebasestorage.googleapis.com/v0/b/mz-e-commerce-e3969.appspot.com/o/productsIMGS%2Fproduct6.webp?alt=media&token=003988cd-0547-41df-9843-eff423c2dd1a",
+      },
+    ];
   }
 }

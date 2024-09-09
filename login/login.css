@@ -279,8 +279,11 @@
 }
 .sign__section.right-panel-active .overlay-left {
   transform: translateX(0);
+  opacity: 1;
 }
-
+.overlay-left {
+  opacity: 0;
+}
 .sign__section.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
@@ -366,10 +369,6 @@
     width: 100% !important;
     height: 30% !important;
   }
-  .overlay-left {
-    bottom: 0 !important;
-    top: auto !important;
-  }
   .overlay {
     display: flex;
     flex-direction: column-reverse;
@@ -386,31 +385,45 @@
     height: 30%;
   }
   .sign__section.right-panel-active .overlay {
-    transform: translateY(-7%);
+    transform: translateY(0%);
   }
   .sign__section.right-panel-active .overlay-left {
     transform: translateY(0);
   }
-
+  .overlay-right {
+    opacity: 1;
+  }
   .sign__section.right-panel-active .overlay-right {
     transform: translateY(20%);
+    bottom: 0;
+    top: inherit;
+    opacity: 0;
   }
   .sign__section.right-panel-active .sign__in__form {
     transform: translateY(43%);
+    opacity: 0;
+    z-index: 0;
   }
-
-  .sign__section.right-panel-active .sign__up__form {
-    transform: translateY(43%);
-    opacity: 1;
+  .sign__in__form {
+    transform: translateY(0%);
     z-index: 5;
+    opacity: 1;
+  }
+  .sign__section.right-panel-active .sign__up__form {
+    transform: translateY(1%);
+    opacity: 1;
+    bottom: 0;
+    top: inherit;
+    z-index: 5;
+  }
+  .sign__up__form {
+    transform: translateY(43%);
+    opacity: 0;
+    z-index: 0;
   }
 
   .sign__section.right-panel-active .overlay-container {
-    transform: translateY(-55%);
-  }
-
-  .sign__section.right-panel-active .overlay {
-    transform: translateY(50%);
+    transform: translateY(0%);
   }
 }
 

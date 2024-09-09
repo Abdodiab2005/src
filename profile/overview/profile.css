@@ -207,7 +207,6 @@ Neutral Color 2 (Light Gray): #D3D3D3 */
 /* end crop modal */
 
 .nav__data {
-  padding: 15px 50px;
   background-color: #e9e9e924;
 }
 
@@ -885,10 +884,6 @@ Neutral Color 2 (Light Gray): #D3D3D3 */
   }
 }
 @media (max-width: 920px) {
-  .container {
-    padding: 10px 0 0 10px;
-  }
-
   .order__card {
     grid-template-columns: 30% 70%;
   }
@@ -924,9 +919,6 @@ Neutral Color 2 (Light Gray): #D3D3D3 */
   }
   .popup__order__details.active {
     transform: translateX(-50%);
-  }
-  .nav__data {
-    padding: 0;
   }
 }
 @media (max-width: 760px) {
@@ -1050,11 +1042,7 @@ Neutral Color 2 (Light Gray): #D3D3D3 */
     width: 150px;
   }
   .main {
-    margin-top: 23.5vh;
-    grid-template-columns: 15% 85%;
-  }
-  .container {
-    padding: 0;
+    padding: 10px 20px;
   }
   .nav__item {
     padding-left: 10px;

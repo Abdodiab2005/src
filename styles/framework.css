@@ -267,10 +267,6 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: not-allowed !important;
 }
 
-.menu__icon {
-  display: none;
-}
-
 .ripple-effect {
   position: relative;
   overflow: hidden;

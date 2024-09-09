@@ -192,8 +192,8 @@
     </div>
 
     <script>
-      const signUpButton = document.querySelector("#showSignIn");
-      const signInButton = document.querySelector("#showSignUp");
+      const signUpButton = document.querySelector("#showSignUp");
+      const signInButton = document.querySelector("#showSignIn");
       const main = document.querySelector(".sign__section");
 
       signInButton.addEventListener("click", () => {
@@ -202,9 +202,8 @@
       signUpButton.addEventListener("click", () => {
         main.classList.remove("right-panel-active");
       });
-      localStorage.clear();
     </script>
     <script src="../js/header.js"></script>
-    <script src="./LoginBundled.js" async></script>
+    <script src="./authBundled.js" async></script>
   </body>
 </html>
