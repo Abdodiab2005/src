@@ -13,6 +13,6 @@ function loadHeader(path) {
 
 // Preload header before DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  loadHeader("../../components/header_footer.html");
-  loadHeader("../../components/aside.html");
+  loadHeader("../components/header_footer.html");
+  loadHeader("../components/aside.html");
 });

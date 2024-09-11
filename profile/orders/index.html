@@ -33,11 +33,34 @@
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet" />
+
+    <link
+      rel="preload"
+      href="../../styles/framework.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/aside.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/header.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/footer.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href="./orders.css" />
+    <script src="../../js/handleLogin.js"></script>
+    <script src="../../js/myFramework.js"></script>
+    <script src="../aside.js"></script>
+    <script src="../header.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../src/mainComponents.js"></script>
-    <link rel="stylesheet" href="./orders.css" />
-    <link rel="stylesheet" href="../../src/components.css" />
     <style>
       body.loading-active {
         pointer-events: none;
@@ -122,7 +145,7 @@
       }
     </style>
   </head>
-  <body>
+  <body id="root">
     <div class="popup">
       <button class="closeBtn" id="closeBtn">
         <i class="fa-solid fa-xmark"></i>
@@ -254,8 +277,9 @@
         </div>
       </div>
     </div>
-    <script src="../../src/main.js"></script>
-    <script src="../../src/handleLogin.js"></script>
-    <script src="./bundle.js"></script>
+    <main class="main">
+      <div class="order__card__container"></div>
+    </main>
+    <script src="./ordersBundled.js"></script>
   </body>
 </html>

@@ -1,0 +1,44 @@
+export function useLogout() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const logoutHandle = () => {
+      document.querySelector(".logoutBtn")?.addEventListener("click", () => {
+        confirmPopupDialog().then((res) => {
+          if (navigator.onLine && res.isConfirmed) {
+            signOut(auth)
+              .then(() => {
+                localStorage.clear();
+                swalTopRightAlert(
+                  "Signed out successfully",
+                  "success",
+                  1000,
+                  "green"
+                );
+                setTimeout(() => navigate("/login"), 1000); // Use navigate instead of location.replace
+              })
+              .catch((error) =>
+                swalTopRightAlert(`Error: ${error.message}`, "error")
+              );
+          } else {
+            swalTopRightAlert(
+              "Check your internet connection and try again",
+              "error",
+              3000,
+              "red"
+            );
+          }
+        });
+      });
+    };
+
+    logoutHandle();
+
+    // Cleanup function to remove event listeners
+    return () => {
+      document
+        .querySelector(".logoutBtn")
+        ?.removeEventListener("click", logoutHandle);
+    };
+  }, [navigate]);
+}

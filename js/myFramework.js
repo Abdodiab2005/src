@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   hideLoadingAnimation();
+
+  setTimeout(() => {
+    const profileImg = document.querySelector(".profileImg");
+    if (profileImg) {
+      const profileImageURL = getLocStore("profileImageURL");
+      if (profileImageURL) {
+        profileImg.setAttribute("src", profileImageURL);
+      } else {
+        console.error("Profile image URL is undefined.");
+      }
+    } else {
+      console.error(".profileImg element not found.");
+    }
+  }, 500);
 });
+console.log("framework");
 function $(selector) {
   const elements = document.querySelectorAll(selector);
 
@@ -100,6 +115,12 @@ function $(selector) {
       elements.forEach((element, index) => {
         callback.call(element, element, index);
       });
+    },
+    text: function (text) {
+      elements.forEach((ele) => {
+        ele.textContent = text;
+      });
+      return this;
     },
   };
 }

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/framework.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+    <link rel="stylesheet" href="./styles/homePage.css" />
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="./js/header.js"></script>
+  </head>
+  <style>
+    #root {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "navbar"
+        "main"
+        "footer";
+    }
+  </style>
+
+  <body id="root">
+    <main class="main">
+      <section class="main section flex__column">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img
+                src="./js/media/slider1.jpg"
+                alt="img__slider"
+                class="img__slider" />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./js/media/slider2.png"
+                alt="img__slider"
+                class="img__slider" />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./js/media/slider4.png"
+                alt="img__slider"
+                class="img__slider" />
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+
+        <div class="categories flex__column flex-start">
+          <div class="section__title__container">
+            <h2 class="section__title">Choice Category</h2>
+          </div>
+          <div class="categories__container grid">
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-shirt category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> clothes </span>
+              </span>
+            </div>
+            <div class="Computer__clothes category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-tv category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Computer </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-gamepad category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Gaming </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-headphones category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Headphones </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-basketball category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Football </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="bx bxs-watch category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Watches </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-mobile-button category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Phones </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-couch category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Furniture </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-camera category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Camera </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-person-biking category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> bike </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="fa-solid fa-lightbulb category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> Electrics </span>
+              </span>
+            </div>
+            <div class="category flex__column">
+              <div class="icon__container">
+                <i class="bx bx-grid-small category__icon"></i>
+              </div>
+              <span class="text__container">
+                <span class="category__text"> View All </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section latest__products flex__column start">
+        <div class="section__title__container">
+          <h2 class="section__title">Latest Products</h2>
+        </div>
+        <div
+          class="latest__products__container flex__row space-between flex-start">
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product1.png"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Phones</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Iphone 13 pro max</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $979 </span>
+                  <span class="old__price"> $1199 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product2.webp"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Laptops</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Macbook pro</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $1318 </span>
+                  <span class="old__price"> $1410 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </span>
+                <span class="stars__rate">5</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product3.png"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Camera</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Sony HD camera</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $450 </span>
+                  <span class="old__price"> $540 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product 4.avif"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">chairs</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Gaming Chair</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $200 </span>
+                  <span class="old__price"> $220 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product5.png"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Sports</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Football</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $12 </span>
+                  <span class="old__price"> $20 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product6.webp"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Watch</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">HD Watch</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $200 </span>
+                  <span class="old__price"> $220 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+                </span>
+                <span class="stars__rate">4.5</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product 7.webp"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">Headphone</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Redragon gaming headphone</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $50 </span>
+                  <span class="old__price"> $67 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </span>
+                <span class="stars__rate">5</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product8.avif"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">TV</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Samsung OLED smart TV</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $1499 </span>
+                  <span class="old__price"> $1800 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product 9.png"
+                alt="keyboard"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">
+                  computer accessories
+                </span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Gaming keyboard</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $43 </span>
+                  <span class="old__price"> $49 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product 10.webp"
+                alt="mouse"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">
+                  Computer accessories
+                </span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Mouse gaming</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $36 </span>
+                  <span class="old__price"> $42 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product 11.png"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">earphone</span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Apple airpods pro</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $278 </span>
+                  <span class="old__price"> $350 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="product__container flex__column flex-start">
+            <div class="product__img__container">
+              <img
+                src="./js/media/product12.webp"
+                alt="chair"
+                class="product__img" />
+            </div>
+            <div class="product__info__container">
+              <div class="product__category__container flex__row flex-start">
+                <span class="product__category flex-start">
+                  men accessories
+                </span>
+              </div>
+              <div class="product__name__container">
+                <span class="product__name">Leather wallet</span>
+                <span class="fav__icon">
+                  <i class="fa-regular fa-heart"></i>
+                </span>
+              </div>
+              <div class="price__favourite__container">
+                <span class="price__container flex__row flex-start">
+                  <span class="original__price"> $25 </span>
+                  <span class="old__price"> $29 </span>
+                </span>
+              </div>
+              <div class="stars__container">
+                <span class="stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                <span class="stars__rate">4</span>
+              </div>
+            </div>
+            <div class="add__to__cart__container">
+              <button class="btn add__to__cart__btn">
+                <i class="bx bx-cart-add"></i> Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section why__chooseUS__section">
+        <div class="section__title__container">
+          <h2 class="section__title">Why choosing us?</h2>
+        </div>
+        <div class="why__choose__us__description__container">
+          <p class="why__choose__us__description">
+            We have an old date in E-commerce, our products are original and
+            made with high quality, also we have a secure payments methods, fast
+            delivery and pay with cash services
+          </p>
+        </div>
+        <div class="why__us__cards__container flex__row">
+          <div class="why__choose__us__card flex__column flex-start">
+            <div class="card__img__container">
+              <img
+                src="./js/media/online payment icon.webp"
+                alt="online payment icon"
+                class="card__img" />
+            </div>
+            <div class="card__title__container">
+              <p class="card__title">Secure payments</p>
+            </div>
+            <div class="card__description_container">
+              <p class="card__description">
+                We provide a high quality of secure to pay using your credit
+                card securley
+              </p>
+            </div>
+          </div>
+          <div class="why__choose__us__card flex__column flex-start">
+            <div class="card__img__container">
+              <img
+                src="./js/media/fast delievery icon.png"
+                alt="online payment icon"
+                class="card__img" />
+            </div>
+            <div class="card__title__container">
+              <p class="card__title">Fast delivery</p>
+            </div>
+            <div class="card__description_container">
+              <p class="card__description">We provide fast delivery for you</p>
+            </div>
+          </div>
+          <div class="why__choose__us__card flex__column flex-start">
+            <div class="card__img__container">
+              <img
+                src="./js/media/original products.png"
+                alt="online payment icon"
+                class="card__img" />
+            </div>
+            <div class="card__title__container">
+              <p class="card__title">Original products</p>
+            </div>
+            <div class="card__description_container">
+              <p class="card__description">
+                We sells only the original products to ensure that the quality
+                is high
+              </p>
+            </div>
+          </div>
+          <div class="why__choose__us__card flex__column flex-start">
+            <div class="card__img__container">
+              <img
+                src="./js/media/customer service.png"
+                alt="online payment icon"
+                class="card__img" />
+            </div>
+            <div class="card__title__container">
+              <p class="card__title">24/7 customer service</p>
+            </div>
+            <div class="card__description_container">
+              <p class="card__description">
+                We provide a 24/7 customer service
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./js/myFramework.js" async></script>
+    <script src="./js/HomePage.js"></script>
+  </body>
+</html>

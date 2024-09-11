@@ -293,7 +293,7 @@ Neutral Color 2 (Light Gray): #D3D3D3 */
   transition: 0.3s;
 }
 .group__inputs__container span::before {
-  left: -15%;
+  left: 0;
 }
 .group__inputs__container span::after {
   right: 0;

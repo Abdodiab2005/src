@@ -13,7 +13,7 @@ function loadHeader(path) {
 
 // Preload header before DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  loadHeader("../../components/aside.html");
+  loadHeader("../components/aside.html");
 });
 function addActiveElement(element) {
   setTimeout(() => {
@@ -26,5 +26,5 @@ function addActiveElement(element) {
     } else {
       console.error("Element not found:", element);
     }
-  }, 1000);
+  }, 500);
 }
