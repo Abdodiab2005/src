@@ -31,12 +31,16 @@
 
 a {
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
   user-select: none;
   outline: none !important;
   transition: 0.3s;
 }
-
+button,
+select,
+a,
+i {
+  -webkit-tap-highlight-color: transparent;
+}
 ul {
   list-style: none;
 }

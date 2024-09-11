@@ -161,6 +161,7 @@ aside {
   cursor: pointer;
   font-size: 50px;
   transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .user__profile:hover {

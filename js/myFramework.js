@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   hideLoadingAnimation();
 });
-console.log("framework");
 function $(selector) {
   const elements = document.querySelectorAll(selector);
 

@@ -33,7 +33,7 @@ function closePopup() {
   document
     .querySelector(".popup__inputs__container")
     .addEventListener("reset", function (event) {
-      event.preventDefault(); // This will prevent the form from being reset
+      event.preventDefault();
     });
 }
 let emptyObj = {
@@ -77,7 +77,6 @@ function validateOnCancel(obj) {
 document.addEventListener("DOMContentLoaded", () => {
   fetchAddresses();
 });
-
 async function fetchAddresses() {
   if (!uid) {
     topRightSwal(
@@ -109,7 +108,7 @@ function displayAddresses(addresses) {
   );
   if (addresses.length == 0) {
     addressContainer.innerHTML = sanitizedHTML2;
-    document.querySelector(".addresses__number").textContent = `0 / 0`;
+    document.querySelector(".addresses__number").textContent = `0 / 5`;
   }
   addresses.forEach((address, index) => {
     const sanitizedHTML = DOMPurify.sanitize(`
@@ -275,9 +274,23 @@ $("#addNewAddress").on("click", async () => {
       `Failed to get the user information, please resign in or contact support`,
       "error"
     );
+
     return;
   }
 
+  console.log("clicked");
+  const form = document.querySelector(".popup__inputs__container");
+  form.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      console.log(event);
+      event.preventDefault();
+      validateInputs().then(async (res) => {
+        if (res) {
+          await saveNewAddresses();
+        }
+      });
+    }
+  });
   const addresses = JSON.parse(getLocStore("addresses"));
   if (addresses.length == 5) {
     topRightSwal(`5 addresses only are available`, "error");
@@ -328,29 +341,43 @@ async function editAddress(index) {
     showAddressPopup(addressToEdit);
     stopLoadingSwal();
 
-    $(".edit__popup__btn").forEach((btn) => {
-      btn.addEventListener("click", async () => {
+    const form = document.querySelector(".popup__inputs__container");
+    form.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
         validateInputs().then(async (res) => {
           if (res) {
-            loadingSwal("Saving...");
-            addresses[index] = {
-              name: $("#addNewAddressName").val().value || "",
-              street: $("#addNewAddressStreet").val().value || "",
-              city: $("#AddNewAddressCity").val().value || "",
-              phoneNumber: $("#addNewAddressPhoneNumber").val().value || "",
-              zipCode: $("#addNewAddressZIPcode").val().value || "",
-              default: isDefault,
-            };
-            await updateDoc(userDocRef, { addresses });
-            setLocStore("addresses", JSON.stringify(addresses));
-            displayAddresses(JSON.parse(getLocStore("addresses")));
-
-            closePopup();
-            updateSwal("Data saved successfully", "success");
+            submitEdits();
           }
         });
+      }
+    });
+    $(".edit__popup__btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        submitEdits();
       });
     });
+    function submitEdits() {
+      validateInputs().then(async (res) => {
+        if (res) {
+          loadingSwal("Saving...");
+          addresses[index] = {
+            name: $("#addNewAddressName").val().value || "",
+            street: $("#addNewAddressStreet").val().value || "",
+            city: $("#AddNewAddressCity").val().value || "",
+            phoneNumber: $("#addNewAddressPhoneNumber").val().value || "",
+            zipCode: $("#addNewAddressZIPcode").val().value || "",
+            default: isDefault,
+          };
+          await updateDoc(userDocRef, { addresses });
+          setLocStore("addresses", JSON.stringify(addresses));
+          displayAddresses(JSON.parse(getLocStore("addresses")));
+
+          closePopup();
+          updateSwal("Data saved successfully", "success");
+        }
+      });
+    }
   } catch (error) {
     topRightSwal(`Error editing address: ${error}`, "error");
   }
@@ -382,16 +409,17 @@ async function deleteAddress(index) {
         const userDocSnap = await getDoc(userDocRef);
         const addresses = userDocSnap.data().addresses;
 
-        addresses.splice(index, 1);
-
         if (addresses[index].default === true) {
           reHandleDefaultAddress();
         }
+        addresses.splice(index, 1);
+
         await updateDoc(userDocRef, { addresses });
         setLocStore("addresses", JSON.stringify(addresses));
         displayAddresses(JSON.parse(getLocStore("addresses")));
         topRightSwal("Address deleted successfully");
       } catch (error) {
+        console.error(error);
         topRightSwal(`Error while deleting the address: ${error}`, "error");
       }
     }
@@ -456,7 +484,8 @@ async function reHandleDefaultAddress() {
       addresses[0].default = true;
       await updateDoc(userDocRef, { addresses });
       setLocStore("addresses", JSON.stringify(addresses));
-      // displayAddresses(addresses);
+      console.log(JSON.parse(getLocStore("addresses")));
+      displayAddresses(addresses);
     }
   });
 }

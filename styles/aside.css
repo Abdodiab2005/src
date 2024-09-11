@@ -1,6 +1,7 @@
 .logout__btn__container {
   width: 100%;
   margin-right: 30px;
+  -webkit-tap-highlight-color: transparent;
 }
 .logoutBtn {
   width: 100%;
@@ -49,17 +50,6 @@
 }
 .active.nav__item {
   background-color: #fcfcfc;
-}
-
-.active.nav__item::after {
-  border-radius: 0 0 50px 0;
-  bottom: 100%;
-  z-index: 10;
-  scale: 2;
-  transform: rotate(83deg);
-}
-.active.nav__item a {
-  color: var(--Secondary-color-1);
 }
 .nav__link {
   color: var(--Neutral-color-2);
