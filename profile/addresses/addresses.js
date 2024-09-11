@@ -12,27 +12,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-document.querySelectorAll(".ripple-effect").forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    const button = e.currentTarget;
-    const ripple = document.createElement("span");
-    const diameter = Math.max(button.clientWidth, button.clientHeight);
-    const radius = diameter / 2;
-
-    ripple.style.width = ripple.style.height = `${diameter}px`;
-    ripple.style.left = `${e.clientX - button.offsetLeft - radius}px`;
-    ripple.style.top = `${e.clientY - button.offsetTop - radius}px`;
-    ripple.classList.add("ripple");
-
-    const rippleEffect = button.querySelector(".ripple");
-    if (rippleEffect) {
-      rippleEffect.remove();
-    }
-
-    button.appendChild(ripple);
-  });
-});
+const uid = localStorage.getItem("uid");
 
 function showAddressPopup(obj) {
   $(".add__new__address__popup ").removeClass("hidden");
@@ -94,9 +74,11 @@ function validateOnCancel(obj) {
   });
 }
 
-fetchAddresses();
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAddresses();
+});
+
 async function fetchAddresses() {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -104,17 +86,14 @@ async function fetchAddresses() {
     );
     return;
   }
-
   showLoadingAnimation();
   try {
     const userDocRef = doc(db, "users", uid);
     const userDocSnap = await getDoc(userDocRef);
-
     if (userDocSnap.exists()) {
       const addresses = userDocSnap.data().addresses || [];
-
+      setLocStore("addresses", JSON.stringify(addresses));
       displayAddresses(addresses);
-    } else {
     }
   } catch (error) {
     topRightSwal(`Error: ${error}`), "error";
@@ -124,8 +103,14 @@ async function fetchAddresses() {
 }
 function displayAddresses(addresses) {
   const addressContainer = document.getElementById("sectionDataContainer");
-  addressContainer.innerHTML = ""; // Clear existing addresses
-
+  addressContainer.innerHTML = "";
+  const sanitizedHTML2 = DOMPurify.sanitize(
+    `<h2 class="no-data-found">No addresses found</h2>`
+  );
+  if (addresses.length == 0) {
+    addressContainer.innerHTML = sanitizedHTML2;
+    document.querySelector(".addresses__number").textContent = `0 / 0`;
+  }
   addresses.forEach((address, index) => {
     const sanitizedHTML = DOMPurify.sanitize(`
         <div class="address__card flex__column flex-start w100 p15 g10 rad10">
@@ -194,10 +179,15 @@ function displayAddresses(addresses) {
               </button>
             </div>
           </div>`);
+
     document.querySelector(
       ".addresses__number"
     ).textContent = `${addresses.length} / 5`;
+    if (document.querySelector(".no-data-found")) {
+      document.querySelector(".no-data-found").remove();
+    }
     addressContainer.innerHTML += sanitizedHTML;
+
     addressContainer.querySelectorAll(".edit__btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         editAddress(btn.getAttribute("data-index"));
@@ -215,12 +205,26 @@ function displayAddresses(addresses) {
 
   handleDefaultAddress();
 }
-async function addNewAddress() {
+function generateAddressID() {
+  const generateRandomWord = () => {
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let word = "";
+    for (let i = 0; i < 5; i++) {
+      word += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return word;
+  };
+  const words = new Set();
+  while (words.size < 5) {
+    words.add(generateRandomWord());
+  }
+  return Array.from(words).join("-");
+}
+async function saveNewAddresses() {
   $(".edit__popup__btn").addClass("hidden");
   if (document.querySelector(".add__btn").classList.contains("hidden")) {
     $(".add__btn").removeClass("hidden");
   }
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -228,7 +232,6 @@ async function addNewAddress() {
     );
     return;
   }
-
   loadingSwal("Adding new address...");
   try {
     const userDocRef = doc(db, "users", uid);
@@ -241,6 +244,7 @@ async function addNewAddress() {
       isDefault = false;
     }
     const newAddress = {
+      id: generateAddressID(),
       name: $("#addNewAddressName").val().value,
       street: $("#addNewAddressStreet").val().value,
       city: $("#AddNewAddressCity").val().value,
@@ -256,16 +260,16 @@ async function addNewAddress() {
 
     addresses.push(newAddress);
     await updateDoc(userDocRef, { addresses });
-
-    displayAddresses(addresses);
+    setLocStore("addresses", JSON.stringify(addresses));
+    displayAddresses(JSON.parse(getLocStore("addresses")));
     topRightSwal("Address Saved successfully");
     closePopup();
   } catch (error) {
+    console.error(error);
     topRightSwal(`Error while saving address: ${error}`, "error");
   }
 }
 $("#addNewAddress").on("click", async () => {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -274,9 +278,7 @@ $("#addNewAddress").on("click", async () => {
     return;
   }
 
-  const userDocRef = doc(db, "users", uid);
-  const userDocSnap = await getDoc(userDocRef);
-  const addresses = userDocSnap.data().addresses;
+  const addresses = JSON.parse(getLocStore("addresses"));
   if (addresses.length == 5) {
     topRightSwal(`5 addresses only are available`, "error");
   } else {
@@ -288,14 +290,13 @@ $("#addNewAddress").on("click", async () => {
     $("#addNewAddressBtnPopup").on("click", async () => {
       validateInputs().then(async (res) => {
         if (res) {
-          await addNewAddress();
+          await saveNewAddresses();
         }
       });
     });
   }
 });
 async function editAddress(index) {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -315,13 +316,12 @@ async function editAddress(index) {
     const userDocSnap = await getDoc(userDocRef);
     const addresses = userDocSnap.data().addresses;
     const addressToEdit = addresses[index];
+
     let isDefault;
     if (addressToEdit.default) {
       isDefault = true;
-      console.log("if");
     } else {
       isDefault = false;
-      console.log("else");
     }
 
     validateOnCancel(addressToEdit);
@@ -330,9 +330,6 @@ async function editAddress(index) {
 
     $(".edit__popup__btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        console.log("address to edit: ", addressToEdit);
-        console.log("address to edit default value: ", addressToEdit.default);
-        console.log("isDefault: ", isDefault);
         validateInputs().then(async (res) => {
           if (res) {
             loadingSwal("Saving...");
@@ -345,7 +342,8 @@ async function editAddress(index) {
               default: isDefault,
             };
             await updateDoc(userDocRef, { addresses });
-            displayAddresses(addresses);
+            setLocStore("addresses", JSON.stringify(addresses));
+            displayAddresses(JSON.parse(getLocStore("addresses")));
 
             closePopup();
             updateSwal("Data saved successfully", "success");
@@ -359,7 +357,6 @@ async function editAddress(index) {
 }
 
 async function deleteAddress(index) {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -384,13 +381,15 @@ async function deleteAddress(index) {
         const userDocRef = doc(db, "users", uid);
         const userDocSnap = await getDoc(userDocRef);
         const addresses = userDocSnap.data().addresses;
+
+        addresses.splice(index, 1);
+
         if (addresses[index].default === true) {
           reHandleDefaultAddress();
         }
-        addresses.splice(index, 1);
         await updateDoc(userDocRef, { addresses });
-
-        displayAddresses(addresses);
+        setLocStore("addresses", JSON.stringify(addresses));
+        displayAddresses(JSON.parse(getLocStore("addresses")));
         topRightSwal("Address deleted successfully");
       } catch (error) {
         topRightSwal(`Error while deleting the address: ${error}`, "error");
@@ -400,7 +399,7 @@ async function deleteAddress(index) {
 }
 
 function handleDefaultAddress() {
-  const switchButton = $(".switch");
+  const switchButton = document.querySelectorAll(".switch");
   switchButton.forEach((btn) => {
     btn.addEventListener("click", function () {
       switchButton.forEach((btn) => {
@@ -414,7 +413,6 @@ function handleDefaultAddress() {
 }
 
 async function markAsDefault(index) {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -431,12 +429,15 @@ async function markAsDefault(index) {
     addresses[index].default = true;
     updateSwal("Default address saved successfully", "success");
     await updateDoc(userDocRef, { addresses });
+    setLocStore("addresses", JSON.stringify(addresses));
+    // console.log(JSON.parse(getLocStore("addresses")[0].default));
+    displayAddresses(JSON.parse(getLocStore("addresses")));
   } catch (error) {
+    console.error(error);
     topRightSwal(`Failed to set this address to default: ${error}`, "error");
   }
 }
 async function reHandleDefaultAddress() {
-  const uid = localStorage.getItem("uid");
   if (!uid) {
     topRightSwal(
       `Failed to get the user information, please resign in or contact support`,
@@ -454,6 +455,8 @@ async function reHandleDefaultAddress() {
       addresses.forEach((address) => (address.default = false));
       addresses[0].default = true;
       await updateDoc(userDocRef, { addresses });
+      setLocStore("addresses", JSON.stringify(addresses));
+      // displayAddresses(addresses);
     }
   });
 }

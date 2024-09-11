@@ -9,7 +9,6 @@
   color: var(--Secondary-color-1);
 }
 .add__new__address__btn:hover {
-  /* background-color: var(--Primary-color); */
   color: var(--Primary-color);
 }
 

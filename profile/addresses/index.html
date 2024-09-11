@@ -6,48 +6,29 @@
     <title>Addresses</title>
     <link
       rel="preload"
-      href="../styles/framework.css"
+      href="../../styles/framework.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'" />
     <link
       rel="preload"
-      href="../styles/header.css"
+      href="../../styles/header.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'" />
     <link
       rel="preload"
-      href="../styles/aside.css"
+      href="../../styles/aside.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'" />
     <link
       rel="preload"
-      href="../styles/footer.css"
+      href="../../styles/footer.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'" />
     <link
       rel="preload"
-      href="../styles/addresses.css"
+      href="./addresses.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-      <!-- Fallback for older browsers or when JavaScript is disabled -->
-      <link rel="stylesheet" href="../styles/framework.css" />
-      <link rel="stylesheet" href="../styles/header.css" />
-      <link rel="stylesheet" href="../styles/aside.css" />
-      <link rel="stylesheet" href="../styles/footer.css" />
-      <link rel="stylesheet" href="../styles/addresses.css" />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    </noscript>
-
-    <link rel="preload" href="../js/header.js" as="script" />
-    <script src="../../js/header.js"></script>
-    <script src="../../js/aside.js"></script>
-
     <link
       rel="preload"
       as="style"
@@ -56,6 +37,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
       onload="this.onload=null;this.rel='stylesheet'" />
+
+    <script src="../header.js"></script>
+    <script src="../aside.js"></script>
+    <script src="../../js/myFramework.js"></script>
   </head>
   <body class="grid loading-active" id="root">
     <div class="circle-container">
@@ -147,7 +132,9 @@
       <div class="section__data flex__column flex-start p20">
         <div
           class="address__cards flex__column flex-start w100 g20"
-          id="sectionDataContainer"></div>
+          id="sectionDataContainer">
+          <h2>No addresses available</h2>
+        </div>
         <div class="addresses__number__container m20 w100">
           <div class="addresses__number__card w100 flex__row center p20">
             <div class="addresses__number p10 rad10 m10"></div>
@@ -155,9 +142,8 @@
         </div>
       </div>
     </section>
-    <script src="../js/handleLogin.js"></script>
+    <script src="../../js/handleLogin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
-    <script src="../js/myFramework.js"></script>
     <script src="./addressesBundled.js"></script>
   </body>
 </html>

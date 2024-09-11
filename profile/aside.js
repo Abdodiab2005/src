@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadHeader("../../components/aside.html");
 });
 function addActiveElement(element) {
-  console.log(element);
-
   setTimeout(() => {
     document.querySelectorAll(".nav__item").forEach((nav) => {
       nav.classList.remove("active");
