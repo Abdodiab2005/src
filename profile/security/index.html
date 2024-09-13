@@ -4,23 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Security</title>
-    <link rel="stylesheet" href="../styles/framework.css" />
-    <link rel="stylesheet" href="../styles/header.css" />
-    <link rel="stylesheet" href="../styles/aside.css" />
-    <link rel="stylesheet" href="../styles/footer.css" />
-    <link rel="stylesheet" href="../styles/PassChangeComponent.css" />
-    <script src="../js/header.js"></script>
-    <!-- <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/dist/boxicons.min.js"
-      integrity="sha512-y8/3lysXD6CUJkBj4RZM7o9U0t35voPBOSRHLvlUZ2zmU+NLQhezEpe/pMeFxfpRJY7RmlTv67DYhphyiyxBRA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/animations.min.css"
-      integrity="sha512-GKHaATMc7acW6/GDGVyBhKV3rST+5rMjokVip0uTikmZHhdqFWC7fGBaq6+lf+DOS5BIO8eK6NcyBYUBCHUBXA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="../../styles/framework.css" />
+    <link rel="stylesheet" href="../../styles/header.css" />
+    <link rel="stylesheet" href="../../styles/aside.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="./security.css" />
+    <script src="../header.js"></script>
+    <script src="../aside.js"></script>
+    <script src="../../js/myFramework.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -37,16 +28,19 @@
             <h3 class="setcion__data__card__title">
               Enable two factor authentication
             </h3>
-            <div class="switch" id="switch">
+            <button class="switch btn" id="switch">
               <div class="slider"></div>
-            </div>
+            </button>
           </div>
 
           <div class="section__data__card flex__column center">
             <h3 class="setcion__data__card__title">Change password</h3>
-            <div class="change__pass__container flex__column center">
+            <form
+              action="#"
+              class="change__pass__container flex__column center"
+              id="changePassForm">
               <div
-                class="old__pass pass__input__container flex__row flex-start">
+                class="old__pass pass__input__container flex__row w50 p10 flex-start">
                 <input
                   class="input old__pass__input"
                   id="oldPass1"
@@ -55,7 +49,7 @@
                   key="oldPass1" />
               </div>
               <div
-                class="new__pass pass__input__container flex__row flex-start">
+                class="new__pass pass__input__container flex__column w50 flex-start">
                 <input
                   class="input new__pass__input"
                   id="newPass1"
@@ -69,17 +63,15 @@
                   placeholder="Confirm new password"
                   key="newPass2" />
               </div>
-            </div>
+              <button class="btn changePass" id="changePassBtn" type="submit">
+                Change password
+              </button>
+            </form>
           </div>
         </div>
       </section>
     </div>
-    <script src="../js/handleLogin.js"></script>
-    <script>
-      const switchButton = document.getElementById("switch");
-      switchButton.addEventListener("click", function () {
-        switchButton.classList.toggle("checked");
-      });
-    </script>
+    <script src="../../js/handleLogin.js"></script>
+    <script src="./securityBundled.js"></script>
   </body>
 </html>

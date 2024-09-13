@@ -2,10 +2,10 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./profile/orders/orders.js",
+  entry: "./profile/security/security.js",
   output: {
-    path: path.resolve(__dirname, "./profile/orders"),
-    filename: "ordersBundled.js",
+    path: path.resolve(__dirname, "./profile/security"),
+    filename: "securityBundled.js",
   },
   // module: {
   //   rules: [

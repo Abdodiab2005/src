@@ -159,6 +159,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .w90 {
   width: 90%;
 }
+.w50 {
+  width: 50%;
+}
 .h100 {
   height: 100%;
 }
