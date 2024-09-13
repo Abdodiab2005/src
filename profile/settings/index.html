@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Addresses</title>
+    <link
+      rel="preload"
+      href="../../styles/framework.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/header.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/aside.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="../../styles/footer.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="./setting.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      onload="this.onload=null;this.rel='stylesheet'" />
+
+    <script src="../header.js"></script>
+    <script src="../../js/myFramework.js"></script>
+  </head>
+  <body id="root">
+    <main class="main">
+      <h1 class="section__title">Settings</h1>
+      <section class="section__container flex__column g25 w100">
+        <div
+          class="section__notification__preference w100 flex__column g20 center flex-start">
+          <h2 class="prefernce__title">Push notification</h2>
+          <label class="custom-checkbox">
+            Recieve promotional messages via sms
+            <input type="checkbox" id="smsNotify" name="smsNotify" />
+            <span class="checkmark"></span>
+          </label>
+          <label class="custom-checkbox">
+            <input type="checkbox" id="emailNotify" name="emailNotify" />
+            <span class="checkmark"></span>
+            Recieve promotional messages via email
+          </label>
+        </div>
+        <div class="theme__prefernce">
+          <h2 class="prefernce__title">Theme</h2>
+          <div>
+            <p class="toggle__theme__text">Enable Dark / light theme</p>
+            <div class="toggle__theme__btn__container">
+              <div class="btn__indecator">
+                <div class="btn__icon-container">
+                  <i class="fa-solid btn__icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="account__state__change w100 flex__column center g20">
+          <h2 class="prefernce__title w100 left">Deactivate account</h2>
+          <p class="deactivate__alert">
+            Deactivate account will not remove your data and you can restore
+            your account at any time
+          </p>
+          <button
+            class="account__state__change__btn flex__row g10 center btn"
+            id="deActiveAcc">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Deactivate account
+          </button>
+        </div>
+        <div class="account__state__change w100 flex__column center g20">
+          <h2 class="prefernce__title w100 left">Deactivate account</h2>
+          <p class="deactivate__alert">
+            Deleting account will remove all your data, this action can't be
+            retrate
+          </p>
+          <button
+            class="account__state__change__btn flex__row g10 center btn"
+            id="deleteAcc">
+            <i class="fa-solid fa-trash"></i> Delete Account
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="./settings.js"></script>
+  </body>
+</html>

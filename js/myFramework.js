@@ -13,9 +13,39 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       console.error(".profileImg element not found.");
     }
+    // toggleDarkMode();
   }, 500);
 });
 console.log("framework");
+function toggleDarkMode() {
+  console.log("Loading dark mode");
+  const darkmode = getLocStore("darkmode");
+  if (darkmode == "true") {
+    document.body.classList.add("darkmode");
+    setTimeout(() => {
+      document.querySelector(".active.nav__item").style.backgroundColor =
+        "var(--dark-color)";
+      document
+        .querySelectorAll(".header__link")
+        .forEach((item) => (item.style.color = "#fff"));
+      document.querySelector(".nav__header").style.backgroundColor =
+        "var(--dark-color)";
+      document.querySelector(".active.nav__item .nav__link").style.color =
+        "#fff";
+    }, 500);
+  } else if (darkmode == "false") {
+    document.body.classList.remove("darkmode");
+    document.querySelector(".active.nav__item").style.backgroundColor = "#fff";
+    document
+      .querySelectorAll(".header__link")
+      .forEach((item) => (item.style.color = "var(--Primary-color)"));
+    document.querySelector(".nav__header").style.backgroundColor = "#fff";
+    document.querySelector(".active.nav__item .nav__link").style.color = "#000";
+  } else {
+    setLocStore("darkmode", false);
+  }
+  console.log("loaded");
+}
 function $(selector) {
   const elements = document.querySelectorAll(selector);
 
