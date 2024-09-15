@@ -193,6 +193,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .m10 {
   margin: 10px;
 }
+.m15 {
+  margin: 15px;
+}
 .m20 {
   margin: 20px;
 }
@@ -223,7 +226,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .rad50 {
   border-radius: 50%;
 }
-
+.left {
+  text-align: left;
+}
 .space-between {
   justify-content: space-between;
 }
